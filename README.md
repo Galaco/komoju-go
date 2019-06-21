@@ -8,6 +8,7 @@
 # komoju-go
 Unoffical Golang wrapper for Komoju api. Based on documentation available here: [https://docs.komoju.com/en/getting_started/overview/#products](https://docs.komoju.com/en/getting_started/overview/#products)
 
+A work-in-progress written mostly for fun. Any bugs found please feel free to open an issue and/or raise a PR.
 
 ### Usage
 
@@ -48,8 +49,28 @@ func main() {
     }
 	
 	paymentUri,_ := komoju.HostedPageURI(secretKey, baseUri, &config)
-	
 	// Now redirect to paymentUri
+}
+````
+
+#### API
+```go
+package main
+
+import (
+	komoju "github.com/galaco/komoju-go"
+	"log"
+)	
+func main() {
+    // ... make a request to the komoju API
+    // expect a standard response.Body as io.ReadCloser
+
+    payload := komoju.ApiResponseEvents{}
+    // remember to handle error
+    _ := komoju.ParseApiResponse(response.Body, &payload)
+    
+    // Do whatever with response
+    log.Println(payload.Data[0].Resource)
 }
 ```
 
