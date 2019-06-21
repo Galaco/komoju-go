@@ -83,7 +83,10 @@ func HostedPageURI(secretKey []byte, baseURI string, config *HostedPageConfig) (
 	endpoint += strings.Join(unmangled, "&")
 
 	mac := hmac.New(sha256.New, secretKey)
-	mac.Write([]byte(endpoint))
+	_,err = mac.Write([]byte(endpoint))
+	if err != nil {
+		return "",err
+	}
 	checkSum := hex.EncodeToString(mac.Sum(nil))
 
 	endpoint += "&" + paramNameHmac + "=" + string(checkSum)
