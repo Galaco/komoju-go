@@ -5,5 +5,4 @@ jobs:
       - image: circleci/golang:1.12
     steps:
       - checkout
-      - run: golangci-lint run
       - run: go test -v ./...
